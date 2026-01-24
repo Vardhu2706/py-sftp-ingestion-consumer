@@ -160,4 +160,4 @@ curl http://localhost:5000/state/vendor_a_sample_invoice_20240101.gpg
 curl http://localhost:5000/queue
 ```
 
-For complete API documentation, see [API_DOCUMENTATION.md](api/API_DOCUMENTATION.md).
+See [Ingestion Producer](https://github.com/Vardhu2706/py-sftp-ingestion-producer) for how files are encrypted and sent to the SFTP server.
