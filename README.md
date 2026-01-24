@@ -24,7 +24,7 @@ The SFTP Ingestion Consumer is a robust file processing system that:
 - 📝 **Structured Logging**: Comprehensive logging for monitoring and debugging
 - ⚙️ **Configurable**: Environment-based configuration for easy deployment
 - 🔄 **Asynchronous Processing**: Redis Queue (RQ) for parallel AI job processing
-- 📡 **Monitoring API**: Optional Flask API for viewing processing state
+- 📡 **Monitoring API**: Comprehensive Flask REST API with filtering, pagination, search, and statistics
 - 🛡️ **Error Handling**: Graceful error handling with poison message detection
 - 🔒 **Security**: Secure key management and encrypted file handling
 
@@ -73,9 +73,15 @@ The consumer consists of three main components:
 - Handles job retries and failures
 
 ### 3. API Server (`api/main.py`) - Optional
-- Provides REST API for monitoring
-- Health check endpoint
-- State viewing endpoint to see all file processing status
+- Provides comprehensive REST API for monitoring and management
+- **Health Check** (`/health`): System health status (database, Redis)
+- **File States** (`/state`): View all files with pagination and filtering (by state, vendor)
+- **File Details** (`/state/<filename>`): Get detailed information about a specific file
+- **Statistics** (`/stats`): Aggregate statistics (success rate, processing times, counts by state)
+- **Search** (`/search`): Search files by filename
+- **Queue Status** (`/queue`): Monitor Redis queue job counts (queued, started, finished, failed)
+
+See [API Documentation](api/API_DOCUMENTATION.md) for detailed endpoint documentation.
 
 ## Workflow
 
@@ -115,3 +121,43 @@ vendor_a_sample_invoice_20260124081522_ffce2720.pdf.gpg.ready
 
 - **`.gpg`**: Indicates the file is PGP-encrypted
 - **`.ready`**: Indicates the file is ready for consumer processing
+
+## API Usage
+
+The Flask API provides comprehensive monitoring and management capabilities. Start the API server:
+
+```bash
+python api/main.py
+```
+
+The API runs on `http://localhost:5000` by default.
+
+### Quick Examples
+
+```bash
+# Health check
+curl http://localhost:5000/health
+
+# Get all files (paginated)
+curl "http://localhost:5000/state?limit=20&offset=0"
+
+# Filter by state
+curl "http://localhost:5000/state?state=DONE"
+
+# Filter by vendor
+curl "http://localhost:5000/state?vendor=vendor_a"
+
+# Get statistics
+curl http://localhost:5000/stats
+
+# Search files
+curl "http://localhost:5000/search?q=invoice"
+
+# Get specific file details
+curl http://localhost:5000/state/vendor_a_sample_invoice_20240101.gpg
+
+# Check queue status
+curl http://localhost:5000/queue
+```
+
+For complete API documentation, see [API_DOCUMENTATION.md](api/API_DOCUMENTATION.md).
