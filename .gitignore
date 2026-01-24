@@ -1,0 +1,95 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# SSH keys
+*_key
+*_key.pub
+producer_key
+producer_key.pub
+consumer_key
+consumer_key.pub
+
+# GPG keys
+gpg_home/
+*.asc
+consumer_public_key.asc
+producer_public_key.asc
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+state.db
+
+# Processing directories
+ingress/
+archive/
+failed/
+output/
+tmp/
+
+# Test and utility scripts
+test_*.py
+check_*.py
+setup_*.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+*.md
